@@ -2,7 +2,12 @@ module github.com/Cool-haker/todo-api-go
 
 go 1.24.2
 
-require github.com/labstack/echo/v4 v4.13.4
+require (
+	github.com/joho/godotenv v1.5.1
+	github.com/labstack/echo/v4 v4.13.4
+	gorm.io/driver/postgres v1.6.0
+	gorm.io/gorm v1.31.1
+)
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -21,6 +26,4 @@ require (
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
-	gorm.io/driver/postgres v1.6.0 // indirect
-	gorm.io/gorm v1.31.1 // indirect
 )

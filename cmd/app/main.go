@@ -1,32 +1,16 @@
 package main
 
 import (
-	"net/http"
-
+	"github.com/Cool-haker/todo-api-go/internal/db"
+	"github.com/Cool-haker/todo-api-go/internal/models/routes"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
+	db.InitDB()
+
 	e := echo.New()
-	InitDB()
-	e.GET("/", getHandler)
-	e.POST("/", postHandler)
-	e.Start(":8080")
-}
+	routes.InitRoutes(e)
 
-type User struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
-
-func getHandler(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, world!")
-}
-
-func postHandler(c echo.Context) error {
-	var u User
-	if err := c.Bind(&u); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid JSON"})
-	}
-	return c.JSON(http.StatusCreated, u)
+	e.Logger.Fatal(e.Start(":8080"))
 }
