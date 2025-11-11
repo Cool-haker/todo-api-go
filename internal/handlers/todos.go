@@ -49,6 +49,19 @@ func GetTodoHandler(c echo.Context) error {
 		})
 	}
 
+	var user models.User
+	var countUsers int64
+	if err := db.DB.Model(&user).Count(&countUsers).Error; err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
+	}
+	if userId > int(countUsers) {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "user not exists",
+		})
+	}
+
 	if err := db.DB.Where("user_id = ?", userId).Find(&todos).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return c.JSON(http.StatusNotFound, map[string]string{

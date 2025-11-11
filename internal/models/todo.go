@@ -16,10 +16,3 @@ type TmpTodo struct {
 	Description *string `json:"description"`
 	IsCompleted *bool   `json:"is_completed" gorm:"default:false"`
 }
-
-type User struct {
-	ID        int       `json:"id" gorm:"primaryKey"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email" gorm:"unique"`
-	CreatedAt time.Time `json:"created_at" gorm:"autoCreateTime"`
-}

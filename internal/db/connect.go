@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Cool-haker/todo-api-go/internal/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -28,5 +29,10 @@ func InitDB() {
 		log.Fatal("Cannot connect to database")
 	}
 	DB = db
+
+	if err := DB.AutoMigrate(&models.Todo{}, &models.User{}); err != nil {
+		log.Fatalf("Failed to migrate models: %v", err)
+	}
+
 	fmt.Println("Connection to database successful")
 }
